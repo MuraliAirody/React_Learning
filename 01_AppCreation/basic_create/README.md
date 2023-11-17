@@ -71,11 +71,26 @@ mentioned in details above
 ```
 ##### the package.json provides some testing libraries
 ##### react and react-dom are two main libraries
-##### react-scripts
+##### react-scripts which will help to load the html in index.js to index.html
 ##### web-vitals: tracking the performance record
 
 
 ### node modules create through package.json
 
 
+index.js -> main entry to the react app
 
+index.html -> single page application, application load from here 
+
+## Naming convention we need to follow
+
+1. capitalize first letter of each word of the component
+2.  create the component file with the same name as component inside it, follow the cases also eg: component name is FirstComponent file name should be FirstComponent.jsx
+
+[Read More](https://www.linkedin.com/pulse/react-js-naming-convention-kristiyan-velkov)
+<br>
+[Another article from medium](https://medium.com/@smail.oubaalla/how-to-name-your-react-component-conventions-b8daf3abc574)
+
+**Note: we can't return multiple elements using components, thats why we should wrap it in 'div' or we should use jsx fragment '<></>' to return the multiple element**
+
+**Note: if the component returning the html, the file extension should be jsx. if its having only js code we can main it in .js file**
