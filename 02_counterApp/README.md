@@ -38,3 +38,5 @@ let [counter,setCounter] =useState(10);
  remaining all are simple jsx code ( means simple java script logic like button click and html text)
 
 
+**npm run dev** used to run the react app
+
