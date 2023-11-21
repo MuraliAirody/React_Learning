@@ -42,7 +42,7 @@ function TextForm(props) {
                 <div className="container">
                     <h2>Text Summary</h2>
                     <p><span style={{backgroundColor:"#dcdcdc"}}>{getWordCount(text)} word and {text.length} character </span></p>
-                    <p><span style={{backgroundColor:"#dcdcdc"}}>{(getWordCount(text) * 0.06).toFixed(2)} Minutes to read</span></p>
+                    <p><span style={{backgroundColor:"#dcdcdc"}}>{(getWordCount(text) * 0.0083).toFixed(2)} Minutes to read</span></p>
 
                     <h2>Preview</h2>
                     <p><span style={{backgroundColor:"#dcdcdc"}}>{text}</span></p>
