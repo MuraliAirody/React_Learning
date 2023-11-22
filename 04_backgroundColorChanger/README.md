@@ -1,4 +1,6 @@
 
+# [View Demo](https://replit.com/@MuraliAirody/Background-color-changer-1)
+
 ## Event Handling
 
 1. onClick={setColor('red')}:
