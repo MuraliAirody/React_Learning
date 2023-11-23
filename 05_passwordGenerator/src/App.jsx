@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { MdOutlineRestartAlt } from "react-icons/md";
 import {Alert} from "@mui/material"
 
@@ -10,7 +10,7 @@ function App() {
   const [password, setPassword] = useState("")
   const [openAlert,setOpenAlert] = useState(false)
 
-  const generatePassword = () => {
+  const generatePassword = useCallback(()=>{
     let pass = ""
     let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
@@ -26,7 +26,7 @@ function App() {
       pass += str[random]
     }
     setPassword(pass)
-  }
+  },[length,numberValid,charValid])
 
   useEffect(() => {
     generatePassword()
