@@ -48,12 +48,11 @@ Check the bellow doc for the usage of material ui
 
 ### callBack Hook and useEffect Hook
 
-```text
+
 useCallback and useEffect are two different hooks in React, and their dependencies work in different ways1:
 
-useCallback: This hook allows you to memoize a function and pass it to child components without causing unnecessary re-renders. The dependencies array is used to determine when the function should be re-memoized. If any of the dependencies change, the function is re-memoized and a new reference is returned. You should use useCallback when you need to pass a function down to a child component as a prop, but the function may be expensive to compute or causes unnecessary re-renders.
+- useCallback: This hook allows you to memoize a function and pass it to child components without causing unnecessary re-renders. The dependencies array is used to determine when the function should be re-memoized. If any of the dependencies change, the function is re-memoized and a new reference is returned. You should use useCallback when you need to pass a function down to a child component as a prop, but the function may be expensive to compute or causes unnecessary re-renders.
 
-useEffect: This hook allows you to perform side effects, such as retrieving data from an API, updating the DOM, or subscribing to events. useEffect will run the function inside when the dependency array changes1. It’s the alternative for the class component lifecycle methods componentDidMount, componentWillUnmount, componentDidUpdate, etc.
+- useEffect: This hook allows you to perform side effects, such as retrieving data from an API, updating the DOM, or subscribing to events. useEffect will run the function inside when the dependency array changes1. It’s the alternative for the class component lifecycle methods componentDidMount, componentWillUnmount, componentDidUpdate, etc.
 
 In summary, useCallback will create a new function when the dependency array changes, while useEffect will run the function inside when the dependency array changes. Functions with useCallback and values with useMemo can be used as dependency in useCallback, useMemo and useEffect.
-```
