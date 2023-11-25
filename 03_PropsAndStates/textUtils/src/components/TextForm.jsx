@@ -28,6 +28,13 @@ function TextForm(props) {
         console.log("filtered words ",filteredWords)
         return filteredWords.length;
     }
+
+    const getNumberofSentences = (text)=>{
+      const sententses = text.trim() === ""?[]:text.trim().split('.').filter((sent)=>sent.trim()!="")
+      console.log("sentenses ",sententses)
+      return sententses.length
+    }
+
     return (
         <>
             <div className="d-flex flex-column  flex-wrap" >
@@ -43,6 +50,7 @@ function TextForm(props) {
                     <h2>Text Summary</h2>
                     <p><span style={{backgroundColor:"#dcdcdc"}}>{getWordCount(text)} word and {text.length} character </span></p>
                     <p><span style={{backgroundColor:"#dcdcdc"}}>{(getWordCount(text) * 0.0083).toFixed(2)} Minutes to read</span></p>
+                    <p><span style={{backgroundColor:"#dcdcdc"}}>Number of sentences: {getNumberofSentences(text)}</span></p>
 
                     <h2>Preview</h2>
                     <p><span style={{backgroundColor:"#dcdcdc"}}>{text}</span></p>
