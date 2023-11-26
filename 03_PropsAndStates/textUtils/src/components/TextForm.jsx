@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 function TextForm(props) {
     const [text, setText] = useState("")
+    const [isCopied,setIsCopied] = useState(false)
 
     const changeTextToUpper = () => {
         // console.log(text)
@@ -23,17 +24,34 @@ function TextForm(props) {
 
     const getWordCount = (text) =>{
         const words = text.trim().split(/\s+/);
-        console.log("array of words ",words)
+        // console.log("array of words ",words)
         const filteredWords = words.filter(word => word.match(/[a-zA-Z]/));
-        console.log("filtered words ",filteredWords)
+        // console.log("filtered words ",filteredWords)
         return filteredWords.length;
     }
 
     const getNumberofSentences = (text)=>{
       const sententses = text.trim() === ""?[]:text.trim().split('.').filter((sent)=>sent.trim()!="")
-      console.log("sentenses ",sententses)
+    //   console.log("sentenses ",sententses)
       return sententses.length
     }
+
+    const removeExtraSpace=()=>{
+        const textArr = text.trim().split(/[ ]+/);
+        console.log("text array ",textArr);
+
+        setText(textArr.join(" "))
+    }
+    const copyText =()=>{
+        if(!isCopied){
+            window.navigator.clipboard.writeText(text)
+            setIsCopied(true)
+        }
+    }
+
+    useEffect(()=>{
+        setIsCopied(false)
+    },[text])
 
     return (
         <>
@@ -44,6 +62,8 @@ function TextForm(props) {
                     <div className="mt-3 d-flex justify-content-center">
                         <button type="button" className="btn btn-primary" onClick={changeTextToUpper}>To UpperCase</button>
                         <button type="button" className="btn btn-primary ms-3" onClick={changeTextToLower}>To LowerCase</button>
+                        <button type="button" className="btn btn-primary ms-3" onClick={removeExtraSpace}>Remove Extra Space</button>
+                        <button type="button" className="btn btn-primary ms-3" onClick={copyText}><span>{isCopied?'Copied':'Copy'}</span></button>
                     </div>
                 </div>
                 <div className="container">
