@@ -76,12 +76,12 @@ function TextForm(props) {
                 </div>
                 <div className="container">
                     <h2>Text Summary</h2>
-                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : "black"}` }}>{getWordCount(text)} word and {text.length} character </span></p>
-                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : "black"}` }}>{(getWordCount(text) * 0.0083).toFixed(2)} Minutes to read</span></p>
-                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : "black"}` }}>Number of sentences: {getNumberofSentences(text)}</span></p>
+                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : ""}` }}>{getWordCount(text)} word and {text.length} character </span></p>
+                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : ""}` }}>{(getWordCount(text) * 0.0083).toFixed(2)} Minutes to read</span></p>
+                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : ""}` }}>Number of sentences: {getNumberofSentences(text)}</span></p>
 
                     <h2>Preview</h2>
-                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : "black"}` }}>{text === "" ? "Please Eneter the text above to see the preview" : text}</span></p>
+                    <p><span style={{ backgroundColor: `${props.enableMode === 'light' ? '#DCDCDC' : ""}` }}>{text === "" ? "Please Eneter the text above to see the preview" : text}</span></p>
                 </div>
             </div>
         </>

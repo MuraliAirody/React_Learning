@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import ExtraDarkMode from './ExtraDarkMode'
 
 function NavBar(props) {
   return (
@@ -20,10 +21,7 @@ function NavBar(props) {
 
 
             </ul>
-            {/* <form className="d-flex">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form> */}
+            {props.enableMode==="dark"&&<ExtraDarkMode handleExtraDark={props.handleExtraDark}></ExtraDarkMode>}
             <div className="form-check form-switch" style={{color:`${props.enableMode==='light'?'black':'white'}`}}>
               <input className="form-check-input" style={{width:"60px",height:'30px',marginRight:'10px',backgroundColor:`${props.enableMode==='light'?'':'black'}`}} onClick={props.handleMode} type="checkbox" id="flexSwitchCheckDefault"/>
                 <label className="form-check-label" style={{padding:'0',marginTop:'5px'}} htmlFor="flexSwitchCheckDefault">{props.enableMode==='light'?'Enable':'Disable'} Dark Mode</label>
