@@ -1,7 +1,9 @@
-
+import {RouterProvider, createBrowserRouter} from 'react-router-dom'
 import { useState } from 'react'
 import NavBar from './components/NavBar'
 import TextForm from './components/TextForm'
+import Root from './Root'
+import About from './components/About'
 
 function App() {
 
@@ -41,16 +43,44 @@ function App() {
       handleAlert("slate blue mode enabled","success")
     }
   }
+  
+
+    const router = createBrowserRouter([
+       {
+        path:"/",
+        element:<Root   enableMode={mode} 
+        handleMode={handleMode} 
+        handleExtraDark={handleExtraDark}  
+        extraDarkMode={extraDarkMode}
+        about="about TextUtils"/>,
+        children:[
+          {
+            path:"",
+            element: <TextForm 
+            heading="Text Convertor" 
+            enableMode={mode} 
+            handleAlert={handleAlert} 
+            openAlert={openAlert}/>
+          },
+          {
+            path:"about",
+            element:<About></About>
+          }
+        ]
+       }
+    ])
 
   return (
+    
     <>
       {/* <NavBar title="TextUtils" about="about TextUtils"></NavBar> */}
       {/* <NavBar about="about TextUtils"></NavBar> */}
-      <NavBar enableMode={mode} handleMode={handleMode} handleExtraDark={handleExtraDark}></NavBar>
+      {/* <NavBar enableMode={mode} handleMode={handleMode} handleExtraDark={handleExtraDark}></NavBar>
       <div className="container-fluid" style={{backgroundColor:`${mode==="light"?"white":extraDarkMode==="dark"?"black":extraDarkMode}`,height:"100vh",color:`${mode==='light'?'black':'white'}`}}>
       <TextForm heading="Text Convertor" enableMode={mode} handleAlert={handleAlert} openAlert={openAlert}></TextForm>
 
-      </div>
+      </div> */}
+      <RouterProvider router={router}></RouterProvider>
     </>
   )
 }
