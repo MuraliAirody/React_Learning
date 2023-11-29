@@ -64,7 +64,7 @@ function App() {
           },
           {
             path:"about",
-            element:<About></About>
+            element:<About aboutHeader="About"></About>
           }
         ]
        }
