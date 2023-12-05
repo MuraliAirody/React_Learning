@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./App.css";
-import Header from "./component/Header";
 import DisplayProduct from "./component/DisplayProduct";
 import Cart from "./component/Cart";
+
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Root from "./Root";
 
 function App() {
   const [show, setShow] = useState(true);
@@ -38,17 +40,39 @@ function App() {
     setCart([...tempArr]);
   };
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Root show={show} setShow={setShow} size={cart.length}></Root>,
+      children: [
+        {
+          path: "",
+          element: (
+            <DisplayProduct
+              warning={warning}
+              handleClick={handleClick}
+            ></DisplayProduct>
+          ),
+        },
+        {
+          path: "cart",
+          element: (
+            <Cart
+              cart={cart}
+              setCart={setCart}
+              handleChange={handleChange}
+            ></Cart>
+          ),
+        },
+      ],
+    },
+  ]);
+ 
+
+
   return (
     <>
-      <Header show={show} size={cart.length} setShow={setShow} ></Header>
-      {show ? (
-        <DisplayProduct
-          warning={warning}
-          handleClick={handleClick}
-        ></DisplayProduct>
-      ) : (
-        <Cart cart={cart} setCart={setCart} handleChange={handleChange} />
-      )}
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
