@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Card from "./Card";
 import list from "../ProductData/data";
 import Alert from "@mui/material/Alert";
+import { useDisplayContext } from "../context";
 
-function DisplayProduct({ warning, handleClick }) {
+function DisplayProduct() {
+    const {warning,handleClick} = useDisplayContext()
   return (
     <>
       <div className="mt-24">

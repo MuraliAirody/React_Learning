@@ -1,9 +1,10 @@
 import React from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useHeaderContext } from "../context";
 
-function Header({ show, size, setShow }) {
-  console.log(show);
+function Header() {
+  const {show,size,setShow} = useHeaderContext();
   return (
     <div>
       <nav className={`bg-gray-800 p-0 ${show?'fixed top-0 left-0 right-0':''}`}>

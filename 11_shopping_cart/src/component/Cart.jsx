@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useCartContext } from "../context";
 
-const Cart = ({ cart,setCart,handleChange }) => {
+const Cart = () => {
+
+const {cart,setCart,handleChange} = useCartContext()
+
   const [price, setPrice] = useState(0);
 
   const handlePrice = () => {
