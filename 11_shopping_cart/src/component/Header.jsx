@@ -18,7 +18,7 @@ function Header() {
               Shopping Cart
             </Link>
           </div>
-          <div className="p-4 m-auto" style={{ width: "600px" }}>
+          {/* <div className="p-4 m-auto" style={{ width: "600px" }}>
             <form>
               <div className="relative">
                 <input
@@ -36,8 +36,8 @@ function Header() {
                 </button>
               </div>
             </form>
-          </div>
-          <button className="me-10" onClick={() => setShow(false)}>
+          </div> */}
+          <button className="me-10 ms-auto" onClick={() => setShow(false)}>
             <Link to="/cart"><FaCartShopping className="text-green-600 text-5xl" /></Link>
             <span className="text-red-600 font-bold">{size} items</span>
           </button>
