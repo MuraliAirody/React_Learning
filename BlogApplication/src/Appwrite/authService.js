@@ -23,7 +23,7 @@ class AuthService {
             return userAccount
         }
     }catch(err){
-        console.log(err);
+        console.log("Appwrite service :: createAccount :: error", err);
         throw err
     }
   }
@@ -32,7 +32,7 @@ class AuthService {
     try{
        return await this.account.createEmailSession(email,password)
     }catch(err){
-        console.log(err);
+        console.log("Appwrite service :: login :: error", err);
         throw err
     }
   }
@@ -40,8 +40,8 @@ class AuthService {
   async getCurrentUser(){
     try{
        return await this.account.get()
-    }catch(err){
-        console.log(err);
+    }catch (err){
+        console.log("Appwrite service :: getCurrentUser :: error", err);
         throw err
     }
   }
@@ -50,7 +50,7 @@ class AuthService {
     try{
        await this.account.deleteSession()
     }catch(err){
-        console.log(err);
+        console.log("Appwrite service :: logout :: error", err);
         throw err
     }
   }
