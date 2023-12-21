@@ -139,4 +139,4 @@ getFilePreview(fileId){
 
 const db_storage_service = new DB_Storage_Service();
 
-export default ;
+export default db_storage_service;
