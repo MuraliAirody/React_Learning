@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Link} from 'react-router-dom'
-import {db_storage_service} from '../Appwrite/DB_Storage_Service'
+import {postService} from '../Appwrite/DB_Storage_Service'
 
 function PostCard({ $id, title, featuredImage }) {
   return (
@@ -9,7 +9,7 @@ function PostCard({ $id, title, featuredImage }) {
       <div className="w-full bg-gray-100 rounded-xl p-4">
         <div className="w-full justify-center mb-4">
           <img
-            src={db_storage_service.getFilePreview(featuredImage)}
+            src={postService.getFilePreview(featuredImage)}
             alt={title}
             className="rounded-xl"
           />
