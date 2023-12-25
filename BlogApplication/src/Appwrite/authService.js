@@ -30,7 +30,7 @@ class AuthService {
 
   async login({email,password}){
     try{
-       return await this.account.createEmailSession(email,password)
+      return await this.account.createEmailSession(email,password)  
     }catch(err){
         console.log("Appwrite service :: login :: error", err);
         throw err
@@ -38,12 +38,12 @@ class AuthService {
   }
 
   async getCurrentUser(){
-    try{
-       return await this.account.get()
-    }catch (err){
-        console.log("Appwrite service :: getCurrentUser :: error", err);
-        // throw err
-    }
+      try{
+        return await this.account.get()
+     }catch (err){
+         console.log("Appwrite service :: getCurrentUser :: error", err);
+         // throw err
+     }
   }
 
   async logout(){

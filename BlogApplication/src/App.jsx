@@ -24,7 +24,9 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout></RootLayout>}>
-        <Route path="" element={<Home></Home>}></Route>
+        <Route path="/" element={
+          <Home></Home>
+        }></Route>
         <Route path="/login" element={
           <AuthLayout authentication={false}>
             <Login></Login>
@@ -75,7 +77,7 @@ function App() {
 
   return !loading?(
     <>
-      <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="min-h-screen flex flex-wrap content-between bg-gray-300">
         <div className="w-full block">
           <RouterProvider router={router}></RouterProvider>
         </div>

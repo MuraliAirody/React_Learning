@@ -48,7 +48,6 @@ class DB_Storage_Service {
           content,
           featuredImage,
           status,
-          userId,
         }
       );
     } catch (err) {

@@ -3,10 +3,11 @@ import postService from "../Appwrite/DB_Storage_Service";
 import {Container, PostCard} from '../component/index'
 
 function Home() {
+    console.log("inside home component");
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        postService.getPosts().then((posts) => {
+        postService.getPosts([]).then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
             }
