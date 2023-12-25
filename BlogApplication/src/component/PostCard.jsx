@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Link} from 'react-router-dom'
-import {postService} from '../Appwrite/DB_Storage_Service'
+import postService from '../Appwrite/DB_Storage_Service'
 
 function PostCard({ $id, title, featuredImage }) {
   return (

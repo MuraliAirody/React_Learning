@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 //URL protection layout
-function AuthLayout({ children, authentication = "true" }) {
+function AuthLayout({ children, authentication = true }) {
   const navigate = useNavigate();
   const status = useSelector((state) => state.auth.status);
   const [loader, setLoader] = useState(true);

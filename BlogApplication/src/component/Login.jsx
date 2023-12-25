@@ -3,7 +3,7 @@ import { Logo, Button, Input } from "./index";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import { authService } from "../Appwrite/authService";
+import  authService  from "../Appwrite/authService";
 import { login as authSlice_Login } from "../store/authSlice";
 import { useForm } from "react-hook-form";
 
@@ -20,7 +20,7 @@ function Login() {
       const session = await authService.login(data);
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) useDispatch(authSlice_Login(userData));
+        if (userData) dispatch(authSlice_Login(userData));
         navigate("/");
       }
     } catch (error) {

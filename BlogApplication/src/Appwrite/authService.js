@@ -42,13 +42,13 @@ class AuthService {
        return await this.account.get()
     }catch (err){
         console.log("Appwrite service :: getCurrentUser :: error", err);
-        throw err
+        // throw err
     }
   }
 
   async logout(){
     try{
-       await this.account.deleteSession()
+       await this.account.deleteSession('current')
     }catch(err){
         console.log("Appwrite service :: logout :: error", err);
         throw err

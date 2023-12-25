@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { Button, RTE, Input } from "../index";
+import { Button, RTE, Input, Selector } from "../index";
 import { useForm} from "react-hook-form";
 import { useSelector } from "react-redux";
 import postService from "../../Appwrite/DB_Storage_Service";
@@ -75,7 +75,6 @@ function PostForm({ post }) {
 
     return () => subscription.unsubscribe();
   }, [watch, slugTransform, setValue]);
-  F;
 
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -121,7 +120,7 @@ function PostForm({ post }) {
             />
           </div>
         )}
-        <Select
+        <Selector
           options={["active", "inactive"]}
           label="Status"
           className="mb-4"
