@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Logo, Button, Input } from "./index";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import  authService  from "../Appwrite/authService";
+import authService from "../Appwrite/authService";
 import { login as authSlice_Login } from "../store/authSlice";
 import { useForm } from "react-hook-form";
 
 function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { register, handleSubmit } = useForm();
@@ -21,7 +20,6 @@ function Login() {
       if (session) {
         const userData = await authService.getCurrentUser();
         if (userData) dispatch(authSlice_Login(userData));
-        navigate("/");
       }
     } catch (error) {
       setError(error.message);
@@ -73,7 +71,8 @@ function Login() {
                 required: true,
               })}
             />
-            <Button type="submit" className="w-full" children='Login'>
+            <Button type="submit" className="w-full">
+              Login
             </Button>
           </div>
         </form>
