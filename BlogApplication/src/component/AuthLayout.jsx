@@ -1,10 +1,9 @@
-import React from "react";
-
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 //URL protection layout
+// eslint-disable-next-line react/prop-types
 function AuthLayout({ children, authentication = true }) {
   const navigate = useNavigate();
   const status = useSelector((state) => state.auth.status);
@@ -14,7 +13,7 @@ function AuthLayout({ children, authentication = true }) {
     if (authentication && status !== authentication) {
       navigate("/login");
     } else if (!authentication && status !== authentication) {
-      navigate("/");
+      navigate("/profile");
     }
     setLoader(false);
   }, [status, authentication, navigate]);
