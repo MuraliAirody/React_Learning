@@ -18,7 +18,7 @@ class AuthService {
         const userAccount = await this.account.create(ID.unique(),email,password,name)
         if(userAccount){
             //if user exist login directly 
-
+            return await this.account.createEmailSession(email,password)  
         }else{
             return userAccount
         }
