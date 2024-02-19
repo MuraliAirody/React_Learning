@@ -19,6 +19,7 @@ When executables are installed via npm packages, npm creates links to them:
 <br>
 <br>
 <br>
+
 ### NPX
 npx is also a CLI tool whose purpose is to make it easy to install and manage dependencies hosted in the npm registry.
 
