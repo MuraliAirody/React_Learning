@@ -222,3 +222,38 @@ It then efficiently updates the actual DOM to reflect the virtual DOM changes.
 
 React employs various optimizations to render efficiently, such as batching updates and minimizing DOM manipulations.
 Overall, React's reconciliation algorithm and virtual DOM ensure that the UI stays in sync with the application state efficiently, providing a smooth and performant user experience
+
+
+# What is JSX ?
+JSX stands for JavaScript XML. It's a syntax extension for JavaScript that allows developers to write HTML-like code within JavaScript. JSX makes it easier to write and manage the structure of UI components, especially in frameworks like React.
+
+Here are some key points about JSX:
+
+- HTML-like Syntax: JSX looks similar to HTML, allowing developers to write familiar markup for describing the structure of user interfaces.
+
+- Embedding JavaScript: JSX allows embedding JavaScript expressions within curly braces {} directly within the markup. This enables dynamic content, conditional rendering, and other JavaScript functionality within the UI.
+
+- Expressiveness: JSX is expressive and allows developers to easily compose complex UIs using components.
+
+- Compile-Time Transformation: JSX code is transformed into regular JavaScript code before being interpreted by the browser. Typically, tools like Babel are used to transpile JSX into JavaScript that browsers can understand.
+
+- Integration with React: While JSX can technically be used independently of React, it's most commonly associated with React. React components are typically written using JSX syntax, enabling the composition of UI components in a declarative and intuitive manner.
+
+Here's a simple example of JSX code:
+
+```jsx
+Copy code
+import React from 'react';
+
+const MyComponent = () => {
+  const name = 'World';
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      <p>This is a JSX component.</p>
+    </div>
+  );
+};
+```
+export default MyComponent;
+In this example, \<div>, \<h1>, and \<p> are JSX elements representing HTML-like structure. The {name} expression inside the \<h1> element is a JavaScript expression embedded within JSX, allowing dynamic content.
