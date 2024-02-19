@@ -149,30 +149,7 @@ React employs a reconciliation algorithm that optimizes the process of comparing
 React's diffing algorithm is efficient, leveraging heuristics to quickly identify changes in the virtual DOM and apply corresponding updates to the real DOM.
 By using the Virtual DOM and its reconciliation algorithm, React abstracts away the complexity of directly manipulating the DOM and provides a declarative programming model for building user interfaces. This approach leads to more predictable and efficient UI updates, ultimately resulting in better performance and developer productivity.
 
-# How does react convert the returned JSX in to javascript Object?
-
-When you define a component in React and render it, React converts the returned JSX (which is essentially syntactic sugar for creating React elements) into a JavaScript object representation called React elements. This process is an essential part of how React works internally.
-
-Here's how it works internally:
-
-- **Parsing JSX**:
-
-When React encounters JSX syntax, it uses a transpiler like Babel to transform the JSX into regular JavaScript function calls. For example, JSX \<MyComponent /> gets transformed into React.createElement(MyComponent).
-- **Creating React Elements**:
-
-The React.createElement() function creates a plain JavaScript object that represents a React element. This object contains information about the type of component (or HTML element), its props (properties), and any children elements.
-For example, React.createElement(MyComponent, { prop: value }, child) would create an object representing a \<MyComponent> element with the specified props and children.
-- **Element Objects**:
-
-The resulting object from React.createElement() is a plain JavaScript object, typically referred to as a React element. It is lightweight and contains all the information needed to describe a component or an HTML element.
-React elements are immutable, meaning they cannot be modified once created. This immutability ensures predictable behavior and efficient rendering in React.
-- **Rendering**:
-
-Once React has the React elements representing the components and elements in the UI, it uses a process called reconciliation to compare these elements with the previously rendered elements (or with the virtual DOM) to determine the minimal set of changes needed to update the UI.
-
-React then updates the DOM efficiently based on the changes identified during the reconciliation process.
-In summary, React converts the returned component (in JSX syntax) into a plain JavaScript object representation called a React element using the React.createElement() function. These React elements are lightweight, immutable objects that describe the components and elements in the UI, allowing React to efficiently manage and update the DOM as needed. This process enables React's declarative programming model and efficient rendering performance.
-
+# React Internal working
 
 ```jsx
 import React from 'react';
@@ -189,6 +166,7 @@ const WelcomeMessage = (props) => {
 export default WelcomeMessage;
 ```
 ```jsx
+
 import React from 'react';
 import WelcomeMessage from './WelcomeMessage';
 
@@ -203,91 +181,44 @@ const App = () => {
 
 export default App;
 ```
- JSX like \<WelcomeMessage name="Alice" />, it gets transformed into a function call using React.createElement() by a transpiler like Babel. So, the JSX:
-
- ```html
- <WelcomeMessage name="Alice" />
-```
-gets transformed into something like:
-
 ```jsx
-React.createElement(WelcomeMessage, { name: "Alice" });
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
 ```
-The React.createElement() function creates an object representing the \<WelcomeMessage> element. It takes three arguments:
+1. **Component Definition**:
 
-1 The type of the element/component (WelcomeMessage in this case).
-2 The props (properties) of the element/component ({ name: "Alice" } in this case).
-3 Any children elements or text content of the element. In this case, there are no children elements.
+WelcomeMessage: This is a functional component that takes props as an argument and returns JSX representing a personalized welcome message.
+App: This is another functional component that renders two WelcomeMessage components with different names.
 
-So, the resulting React element object for \<WelcomeMessage name="Alice" /> would look something like this:
-```js
-{
-  type: WelcomeMessage,
-  props: {
-    name: "Alice"
-  },
-  children: [
-    {
-      type: 'div',
-      props: null,
-      children: [
-        {
-          type: 'h1',
-          props: null,
-          children: ["Welcome, ", "Alice", "!"]
-        },
-        {
-          type: 'p',
-          props: null,
-          children: ["This is a personalized greeting message component."]
-        }
-      ]
-    }
-  ]
-}
-```
-- type: The component function or class (WelcomeMessage in this case).
-- props: An object containing the props passed to the component ({ name: "Alice" } in this case).
-- children: An array of child elements. In this example, the WelcomeMessage component has a single \<div> element as its child, which in turn contains an \<h1> element and a <p> element. The text content inside the \<h1> and \<p> elements is represented as an array of strings, as React internally represents JSX expressions as arrays.
+2. **Rendering**:
 
-render this React element object in your App.jsx file, it would indeed render the WelcomeMessage component with the props and children as specified.
+In index.js, you're using ReactDOM.createRoot to render your App component into the DOM. createRoot is part of Concurrent Mode in React. It creates a root from a container element and returns a root object.
+document.getElementById('root') finds the container in the HTML where the React app will be mounted.
+.render(\<App />) renders the App component into the root container.
 
-Here's how you would render this React element object in App.jsx:
+3. **React Element Creation**:
 
-```jsx
-import React from 'react';
-import WelcomeMessage from './WelcomeMessage';
+When you write JSX (\<App />, \<WelcomeMessage />, etc.), Babel (or another JSX transpiler) compiles it into calls to React.createElement(type, props, ...children).
+For example, \<WelcomeMessage name="Alice" /> compiles to React.createElement(WelcomeMessage, { name: "Alice" }).
 
-const App = () => {
-  // Define the React element object
-  const welcomeMessageElement = {
-    type: WelcomeMessage,
-    props: {
-      name: "Alice"
-    },
-    children: [
-      {
-        type: 'div',
-        props: null,
-        children: [
-          {
-            type: 'h1',
-            props: null,
-            children: ["Welcome, ", "Alice", "!"]
-          },
-          {
-            type: 'p',
-            props: null,
-            children: ["This is a personalized greeting message component."]
-          }
-        ]
-      }
-    ]
-  };
+4. **Component Lifecycle**:
 
-  // Render the React element object
-  return <WelcomeMessage {...welcomeMessageElement.props}>{welcomeMessageElement.children}</WelcomeMessage>;
-};
+When React renders <App />, it first renders WelcomeMessage components with their respective props.
+React calls the function components (WelcomeMessage and App) and returns React elements.
+These elements represent the virtual DOM structure.
 
-export default App;
-```
+5. **Reconciliation and Diffing**:
+
+React reconciles the virtual DOM with the actual DOM, figuring out the differences (if any).
+It then efficiently updates the actual DOM to reflect the virtual DOM changes.
+
+6. **Rendering Optimization**:
+
+React employs various optimizations to render efficiently, such as batching updates and minimizing DOM manipulations.
+Overall, React's reconciliation algorithm and virtual DOM ensure that the UI stays in sync with the application state efficiently, providing a smooth and performant user experience
