@@ -257,3 +257,231 @@ const MyComponent = () => {
 ```
 export default MyComponent;
 In this example, \<div>, \<h1>, and \<p> are JSX elements representing HTML-like structure. The {name} expression inside the \<h1> element is a JavaScript expression embedded within JSX, allowing dynamic content.
+
+
+# What is Higher Order Component (HOC) ?
+
+It is a function that takes a component and returns a new enhanced component with additional functionality. HOCs are commonly used for code reuse, logic abstraction, and separating concerns in React applications.
+
+1. Reusability: HOCs allow you to extract common functionality from components and reuse it across multiple components. This promotes code reusability and reduces duplication.
+
+2. Abstraction: HOCs help in abstracting away complex logic or behavior from the presentational components. This keeps the components focused on rendering UI and makes them simpler and easier to understand.
+
+3. Separation of Concerns: By separating concerns, HOCs enable better code organization and maintainability. Logic that's not directly related to rendering UI can be encapsulated within HOCs, keeping the components clean and focused.
+
+4. Composition: HOCs can be composed together to create more complex behavior by wrapping multiple HOCs around a component. This allows for flexible and powerful combinations of functionality.
+
+import React, { useEffect } from 'react';
+
+// Define a Higher Order Component
+const withLogger = (WrappedComponent) => {
+  // Return a functional component
+  return function WithLogger(props) {
+    // Use useEffect hook to handle component lifecycle
+    useEffect(() => {
+      console.log(`Component ${WrappedComponent.name} mounted`);
+
+      // Cleanup function for when component unmounts
+      return () => {
+        console.log(`Component ${WrappedComponent.name} will unmount`);
+      };
+    }, []); // Empty dependency array means this effect runs only once
+
+    // Render the WrappedComponent with its original props
+    return <WrappedComponent {...props} />;
+  };
+};
+
+// Create a regular functional component
+const MyComponent = () => {
+  return <div>Hello World</div>;
+};
+
+// Enhance MyComponent with the withLogger HOC
+const MyEnhancedComponent = withLogger(MyComponent);
+
+// Now, MyEnhancedComponent has the logging functionality added to it
+
+```jsx
+import React from 'react';
+
+// Define a Higher Order Component (HOC)
+const withTitle = (WrappedComponent, title) => {
+  // Return a functional component
+  return function WithTitle(props) {
+    // Render the WrappedComponent with an added title prop
+    return <WrappedComponent {...props} title={title} />;
+  };
+};
+
+// Create a regular React component
+const MyComponent = (props) => {
+  return <div>{props.title}: Hello World</div>;
+};
+
+// Enhance MyComponent with the withTitle HOC
+const MyEnhancedComponent = withTitle(MyComponent, "My Component");
+
+// Now, MyEnhancedComponent has the title prop added to it
+
+```
+- We define a Higher Order Component called withTitle. It takes two arguments: the WrappedComponent and a title.
+
+- Inside withTitle, we return a functional component (WithTitle) that renders the WrappedComponent. We pass the original props (...props) along with an additional prop title, which is set to the provided title.
+
+- We create a regular React component called MyComponent, which takes props and renders a <div> with the title followed by "Hello World".
+
+- We enhance MyComponent by wrapping it with the withTitle HOC, creating MyEnhancedComponent. We pass the MyComponent as the WrappedComponent and provide a title ("My Component") as the second argument to withTitle.
+
+- Now, when MyEnhancedComponent is rendered, it will receive the title prop added by the withTitle HOC, and it will render with the provided title.
+
+# What is Hooks?
+Hooks are a feature introduced in React 16.8 that allow developers to use state and other React features in functional components without writing a class. Before the introduction of hooks, state and lifecycle methods were only available in class components. With hooks, functional components can now have state, lifecycle methods, and other features previously exclusive to class components.
+
+Hooks provide a more direct way to use React's features, making functional components more powerful and expressive. They also encourage the reuse of stateful logic and make it easier to share code between components.
+
+Some of the built-in hooks provided by React include:
+
+- useState: Allows functional components to use state variables.
+- useEffect: Allows functional components to perform side effects, such as data fetching, after rendering.
+- useContext: Allows functional components to access context values.
+- useReducer: A more powerful alternative to useState, often used for managing complex state logic.
+- useCallback and useMemo: Memoization hooks that optimize performance by caching function references and values.
+- useRef: Allows functional components to create mutable references that persist across renders.
+- useLayoutEffect: Similar to useEffect, but fires synchronously after all DOM mutations.
+
+Using hooks, developers can write more concise and readable code, as they no longer need to switch between functional and class components based on whether state or lifecycle methods are needed. Additionally, hooks encourage the separation of concerns and allow for better code organization and reusability.
+
+# useState
+useState is a React Hook that allows functional components to manage state. It is used to declare a state variable in a functional component and provides a way to update that state. Here's how useState works:
+
+- Import the Hook: First, you need to import the useState hook from the React library.
+
+```jsx
+import React, { useState } from 'react';
+```
+- Declare State: Inside your functional component, call the useState function and provide the initial value for your state variable. useState returns an array with two elements: the current state value and a function to update that value.
+
+```jsx
+const [count, setCount] = useState(0);
+```
+- In this example, count is the state variable, initialized with a value of 0, and setCount is the function to update the count state.
+
+- Access State: You can use the state variable (count in this case) to access the current state value within your component.
+
+```jsx
+return (
+  <div>
+    <p>Count: {count}</p>
+    <button onClick={() => setCount(count + 1)}>Increment</button>
+  </div>
+);
+```
+Here, the current value of count is displayed, and clicking the button calls setCount to update the count state by incrementing it by 1.
+
+- Updating State: To update the state, you call the state updater function (setCount in this case) with the new value you want the state to have.
+
+```jsx
+setCount(newCount);
+```
+The new state value (newCount) replaces the current state value.
+
+Here's a complete example demonstrating the usage of useState:
+
+```jsx
+import React, { useState } from 'react';
+
+function Counter() {
+  // Declare a state variable 'count' initialized to 0
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      {/* Button to increment count */}
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      {/* Button to decrement count */}
+      <button onClick={() => setCount(count - 1)}>Decrement</button>
+    </div>
+  );
+}
+
+export default Counter;
+```
+# useEffect
+useEffect is a React Hook that enables performing side effects in functional components. Side effects in React components typically include data fetching, subscriptions, or manually changing the DOM. useEffect is similar to lifecycle methods in class components, such as componentDidMount, componentDidUpdate, and componentWillUnmount.
+
+Here's how useEffect works:
+
+- Import the Hook: First, you need to import the useEffect hook from the React library.
+
+```jsx
+import React, { useEffect } from 'react';
+```
+- Declare Side Effects: Inside your functional component, call the useEffect function and provide a function containing the code for the side effect you want to perform. This function will run after every render, including the initial render.
+
+```jsx
+useEffect(() => {
+  // Side effect code
+  console.log('Component rendered');
+});
+```
+In this example, console.log('Component rendered') will be executed after each render of the component.
+
+Control When the Effect Runs: By default, the function provided to useEffect runs after every render. However, you can control when the effect runs by providing a second argument, which is an array of dependencies. The effect will only re-run if one of the dependencies has changed since the last render.
+
+```jsx
+useEffect(() => {
+  // Side effect code
+  console.log('Component rendered');
+}, [dependency1, dependency2]);
+```
+In this example, the effect will only re-run if the values of dependency1 or dependency2 have changed since the last render. If the dependency array is empty, the effect runs only once after the initial render, similar to componentDidMount in class components.
+
+- Cleanup: If the effect performs any cleanup, such as unsubscribing from a subscription or removing event listeners, you can return a cleanup function from the effect.
+
+```jsx
+useEffect(() => {
+  // Subscribe to some resource
+  const subscription = someResource.subscribe();
+  
+  // Cleanup function
+  return () => {
+    // Unsubscribe from the resource
+    subscription.unsubscribe();
+  };
+}, [dependency]);
+```
+The cleanup function will be executed when the component unmounts or when the effect re-runs due to a change in dependencies.
+
+Here's a complete example demonstrating the usage of useEffect:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+function ExampleComponent() {
+  const [count, setCount] = useState(0);
+
+  // useEffect to perform side effect after each render
+  useEffect(() => {
+    console.log('Component rendered');
+  });
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+
+export default ExampleComponent;
+```
+
+
+
+
+
+
+
+
