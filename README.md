@@ -478,6 +478,72 @@ function ExampleComponent() {
 export default ExampleComponent;
 ```
 
+# useContext
+useContext is a React Hook that allows functional components to consume values from React's context without needing to use a Consumer component. Context provides a way to pass data through the component tree without having to pass props manually at every level. useContext provides a more concise and direct way to access the context values within functional components.
+
+Here's how useContext works:
+
+- Create a Context: First, you need to create a context using the createContext function from React.
+
+```jsx
+const MyContext = React.createContext(defaultValue);
+```
+You can provide an optional defaultValue, which is used when a component does not have a matching Provider above it in the tree.
+
+Provide Context Value: Wrap your component tree with a Provider component and pass the context value as a prop.
+
+```jsx
+<MyContext.Provider value={contextValue}>
+  {/* Your component tree */}
+</MyContext.Provider>
+```
+All components nested inside this Provider will have access to the context value.
+
+- Consume Context Value: Inside a functional component, call the useContext hook and pass the context object created with createContext. This hook returns the current context value.
+
+```jsx
+const contextValue = useContext(MyContext);
+```
+Now, contextValue contains the current value provided by the nearest matching Provider in the component tree.
+
+Here's a complete example demonstrating the usage of useContext:
+
+```jsx
+import React, { useContext } from 'react';
+
+// Create a context
+const ThemeContext = React.createContext('light');
+
+// Component using the context value
+function ThemedButton() {
+  // Consume context value
+  const theme = useContext(ThemeContext);
+
+  return (
+    <button style={{ background: theme === 'dark' ? 'black' : 'white', color: theme === 'dark' ? 'white' : 'black' }}>
+      {theme === 'dark' ? 'Dark' : 'Light'} Theme
+    </button>
+  );
+}
+
+// Component tree with a Provider
+function App() {
+  return (
+    <ThemeContext.Provider value="dark">
+      <ThemedButton />
+    </ThemeContext.Provider>
+  );
+}
+
+export default App;
+```
+In this example:
+
+We create a ThemeContext using React.createContext().
+The ThemedButton component consumes the ThemeContext using useContext.
+In the App component, we provide the value "dark" to the ThemeContext.Provider.
+The ThemedButton component reads the context value and renders a button with styles based on the current theme.
+
 
 
 
