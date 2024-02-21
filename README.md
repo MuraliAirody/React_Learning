@@ -645,7 +645,90 @@ In this example, Counter is a functional component that uses useReducer to manag
 
 # useCallback and useMemo
 
-# useRef
+useCallback is a React hook that is used to memoize functions, especially when passing them as props to child components. By memoizing functions, you can prevent unnecessary re-renders of child components when the parent component re-renders. 
+<details>
+<summary><b>
+Here's a basic example to demonstrate its usage:</b></summary>
+
+```javascript
+import React, { useState, useCallback } from 'react';
+
+const ChildComponent = React.memo(({ onClick }) => {
+  console.log('ChildComponent rendered');
+  return <button onClick={onClick}>Click me</button>;
+});
+
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // Define a memoized function using useCallback
+  const handleClick = useCallback(() => {
+    console.log('Button clicked');
+    setCount(count + 1);
+  }, [count]); // Dependencies array: handleClick will be re-created if count changes
+
+  console.log('ParentComponent rendered');
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <ChildComponent onClick={handleClick} />
+    </div>
+  );
+};
+
+export default ParentComponent;
+```
+In this example:
+
+ParentComponent renders a ChildComponent which receives a prop onClick.
+We define a function handleClick using useCallback. This function increments the count state and is memoized using useCallback.
+The dependencies array [count] specifies that handleClick should be re-created if the count state changes.
+We pass handleClick as a prop to ChildComponent.
+ChildComponent is wrapped with React.memo to prevent unnecessary re-renders when its props don't change.
+When ParentComponent re-renders due to state changes, the memoized handleClick function won't be re-created unless the count state changes. This ensures that the ChildComponent doesn't re-render unnecessarily, optimizing performance.
+useCallback is particularly useful when passing callbacks to child components, ensuring that the callbacks remain the same across renders as long as their dependencies don't change. This helps in preventing unnecessary re-renders in child components.
+</details>
+<hr>
+
+Certainly! useMemo is a React hook that allows you to memoize the result of a function so that it's only recomputed when one of the dependencies has changed. This can be helpful for optimizing performance by preventing unnecessary recalculations, especially for expensive computations.
+
+<details>
+<summary><b>
+Here's a basic example of how useMemo can be used:</b></summary>
+
+```javascript
+import React, { useMemo, useState } from 'react';
+
+const MyComponent = () => {
+  const [count, setCount] = useState(0);
+
+  // Example of a memoized value using useMemo
+  const memoizedValue = useMemo(() => {
+    // This function will only be called when count changes
+    return count * 2;
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <p>Memoized value: {memoizedValue}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+};
+
+export default MyComponent;
+```
+In this example:
+
+We have a component MyComponent that maintains a count state using useState.
+We use useMemo to memoize the result of the function () => count * 2. This function doubles the value of count.
+The memoized value (memoizedValue) will only be recalculated when the count state changes. Otherwise, it will reuse the memoized value from the previous render.
+This ensures that the expensive computation of doubling count is only performed when necessary, optimizing the performance of the component.
+useMemo is particularly useful when you have expensive computations or calculations that are based on state or props, and you want to avoid re-running them on every render. It's important to remember that while useMemo can help optimize performance, it should be used judiciously and only when needed, as excessive memoization can also lead to increased memory usage.
+</details>
+<hr>
 
 
 
