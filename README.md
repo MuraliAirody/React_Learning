@@ -264,6 +264,140 @@ const MyComponent = () => {
 export default MyComponent;
 In this example, \<div>, \<h1>, and \<p> are JSX elements representing HTML-like structure. The {name} expression inside the \<h1> element is a JavaScript expression embedded within JSX, allowing dynamic content.
 
+# State and Props
+
+In React, both state and props are core concepts that help manage data and facilitate communication between components.
+
+1. State:
+
+State represents the internal data of a component. It's managed within the component itself and can be modified using the setState method. When the state of a component changes, React automatically re-renders the component to reflect the updated state.
+
+- State is mutable and can be updated using setState.
+
+- State is local to the component where it is defined.
+
+- State changes trigger re-renders of the component.
+
+Example:
+
+```jsx
+import React, { Component } from 'react';
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      count: 0
+    };
+  }
+
+  incrementCount = () => {
+    this.setState({ count: this.state.count + 1 });
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Count: {this.state.count}</p>
+        <button onClick={this.incrementCount}>Increment</button>
+      </div>
+    );
+  }
+}
+
+export default Counter;
+```
+2. Props:
+
+Props (short for properties) are inputs to a React component. They are passed from parent components to child components. Props are read-only and cannot be modified by the child component. They allow you to customize the behavior or appearance of a component and enable component composition.
+
+- Props are immutable and are passed from parent to child components.
+
+- Props provide a way for components to communicate with each other.
+
+- Changes to props in parent components trigger re-renders of child components.
+
+Example:
+
+```jsx
+import React from 'react';
+
+function Welcome(props) {
+  return <h1>Hello, {props.name}!</h1>;
+}
+
+export default Welcome;
+```
+
+Here, name is a prop passed to the Welcome component. The parent component would use it like this: \<Welcome name="Alice" />.
+
+In summary, state is internal to a component and can be changed, while props are external inputs passed into a component. Both state and props are essential for building dynamic and reusable React components.
+
+# what is the custom hook, and why do we need it? when to use it ?
+
+A custom hook in React is a JavaScript function that starts with the prefix "use" and allows you to extract component logic into reusable functions. Custom hooks enable you to share logic between components without repeating code, making your codebase cleaner, more modular, and easier to maintain.
+
+**Here's why we need custom hooks and when to use them**:
+
+- Reuse Logic: Custom hooks allow you to encapsulate and reuse logic across multiple components. This promotes code reuse and helps avoid duplication.
+
+- Abstraction: They provide a level of abstraction, allowing you to separate concerns within your components. This can lead to cleaner and more readable code.
+
+- Maintainability: By abstracting logic into custom hooks, you can isolate and test it independently, making your codebase easier to maintain and debug.
+
+- Encapsulation: Custom hooks encapsulate stateful logic, making it easier to understand and reason about the behavior of your components.
+
+- Hooks Compliance: Custom hooks follow the rules of hooks in React. This means they can call other hooks if needed, allowing you to leverage React's built-in features within your custom logic.
+
+- Performance Optimization: Custom hooks can help optimize performance by memoizing expensive computations or subscriptions.
+
+**When to use custom hooks**:
+
+- When You Have Repeated Logic: If you find yourself duplicating logic across multiple components, consider extracting that logic into a custom hook to promote reuse.
+
+- When You Need Stateful Logic: Custom hooks are useful when you need to encapsulate stateful logic, such as managing component state or handling side effects.
+
+- When You Want to Enhance Readability: If a component's logic is becoming too complex and affecting its readability, moving that logic into a custom hook can help simplify the component code.
+
+- When You Want to Encapsulate External Dependencies: Custom hooks are useful for encapsulating logic that depends on external dependencies, such as APIs or libraries, making it easier to mock and test.
+
+<details>
+<summary><b>Example: </b></summary>
+
+```js
+import { useState } from 'react';
+
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = () => {
+    setCount(prevCount => prevCount + 1);
+  };
+
+  const decrement = () => {
+    setCount(prevCount => prevCount - 1);
+  };
+
+  return { count, increment, decrement };
+}
+
+// Usage
+function CounterComponent() {
+  const { count, increment, decrement } = useCounter(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
+    </div>
+  );
+}
+
+```
+
+</details>
+<hr>
 
 # What is Higher Order Component (HOC) ?
 
